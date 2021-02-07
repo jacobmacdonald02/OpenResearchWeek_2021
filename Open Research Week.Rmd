@@ -61,9 +61,6 @@ p
 ```
 
 
-
-
-
 ## Section 1: Parametric Employment Subcentre Identification for Great Britain
 
 Urban metropolitan areas are often seen to comprise clusters of employment areas over space; often with a primary nucleus and surrounding satellite *subcentres* where employment densities are strong.
