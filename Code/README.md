@@ -7,14 +7,34 @@ Getting The Results Out There
 
 *Part 2 of Open Research Week 2021 Talk - Tools and Technology for Open Research*
 
-Using some work on open data, this research analytical showcases an online presentation of outputs, visualization, code and analysis. We'll see a side by side comparison of the code and the output on github to give an example.
+Using some work on open data, this research analytical showcases an online presentation of outputs, visualization, code and analysis. We'll see a side by side comparison of the code and the output on github to give an example of how different research deliverables can be shared.
 
-Github + RMarkdown are great tools to use together for making research and outputs accessible. Best of both worlds - the statistical and analytical capabilities of R with the presentation and openness of Github.
+**Github** + **RMarkdown** are great tools to use together for making research and outputs accessible. This is one way in which we can combine the best of the statistical and analytical capabilities of R with the tracking, presentation and collaborative nature of Github.
 
-To give an overview of hosting some example research code which incorporates: - Some text - Code - Visualization - Methodology - Analysis - etc.
+Primarily, **Git** and **Github** are used to monitor and version control coding documents. This has developed itself into a hosting site for a wide range and types of outputs.
 
-1. Parametric Employment Subcentre Identification for Great Britain
--------------------------------------------------------------------
+During this talk, we'll overview the main ways and examples of how to incorporate: \* Text \* Code \* Visualization \* Methodologies \* Analyses
+
+One of the main benefits of this format is the sharing of code and data outputs
+
+``` r
+set.seed(2021)
+x <- data.frame(Type="Normal", Value=rnorm(1000, 2, 1))
+set.seed(2021)
+y <- data.frame(Type="Chi-Sq.", Value=rchisq(1000, 5))
+
+distributions <- rbind(x, y)
+
+ggplot(distributions, aes(x=Value, fill=Type)) +
+  geom_density(alpha=0.4) +
+  scale_fill_manual(values=c("#999999", "#E69F00", "#56B4E9")) +
+  theme(legend.position="bottom", legend.title = element_blank())
+```
+
+![](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Code/README_files/figure-markdown_github/Rmd%20Code%20Example-1.png)
+
+Section 1: Parametric Employment Subcentre Identification for Great Britain
+---------------------------------------------------------------------------
 
 Urban metropolitan areas are often seen to comprise clusters of employment areas over space; often with a primary nucleus and surrounding satellite *subcentres* where employment densities are strong.
 
@@ -32,7 +52,9 @@ Update to code for exisiting employment subcentre identification in LA and tailo
 
 -   *D*<sub>*x*</sub>: employment density of a given area (census tract) employment levels per hectare
 -   *x*: distance of the area to the central business district (CBD); i.e. local region's densest census tract
--   *f*(*x*): some function of distance to the CBD (located at *x* = 0) where *f*<sup>′</sup>(*x*)&lt;0
+-   *f*(*x*): some function of distance to the CBD (located at *x* = 0) where *f*′(*x*)&lt;0
+
+Here *a* represents some baseline value of employment or population density at the central location,
 
 An employment density gradient can be estimated on these data to define the shape of how local employment decays (as a function of distance to the CBD).
 
@@ -54,17 +76,7 @@ updating the original algorithm to adapt of these differences is useful in apply
 
 The ability to be able to do this completely start to finish for many regions across a country, automatized, comparably, fast, and for free - shows the usefulness of how open research can be used for deep analysis and increasingly robust.
 
-We explore four common density gradients across different regions in England. The method of exponential declining cut-offs to identify subcentres (Ban et al. (2017)) uses a constant linear gradient in identifying employment centres in Los Angeles, Calgary and Paris. The choice of gradient however can imply markedly different employment patterns relative to the CBD. Expanding this algorithm to explore different functional forms of this gradient allows us to better tailor subcentre identification to a variety of urban areas differing in size, structure and composition.
-
-While we have come a far way in understanding sophisticated multidimensional urban employment distributions, stylized facts show that many urban areas still follow density gradients and patterns which can be well explained by distributions and functional forms explored in some of the earliest literature. Early observers of urban employment densities (Clark 1951, Warnes 1975, etc etc.) first observed exponential decay patterns of population and employment levels from the CBD with a constant proportional rate of decline. Warnes 1975 highlight the most commonly used density gradients - with some assumptions on parameter values - which have distributional decay patterns describing the monocentric employment density model.
-
-One of the prime differences between these models is the rate at which the proportional, or logarithmic, density decays with respect to the CBD.
-
-*D*<sub>*x*</sub> = *a**e*<sup>−*b**x*</sup>
- or in terms of proportional rate of decline
-ln(*D*<sub>*x*</sub>)=ln(*a*)−*b* × *x*
-
-Here *a* represents some baseline value of employment or population density at the central location, with absolute density declining at an exponential rate. The log version represents the relative change in density with respect to the CBD. This *Linear* assumption on the gradient (linear in the proportional decrease in density; exponential in the absolute) thus would dictate that the rate at which employment density changes is constant over space. This is the functional form assumed in the subcentre identification work for Los Angeles (Eq. page 10 Ban et al. (2017)).
+We explore four common density gradients across different regions in England.
 
 The following figure, adapted from figure 1 of Warnes (1975) represents the commonly used employment density gradient patterns. These plots highlight how density levels, and the log density levels - representing the proportional density .... - vary as we move further away from the CBD.
 
@@ -86,18 +98,15 @@ Using a different functional form as opposed to the linear version allows for th
 *f*(*x*)=*α* − *β*<sub>4</sub> ⋅ ln(*x*)
 
 ``` r
-knitr::include_graphics(paste0(wd, "/Outputs/ExDensGradients.jpeg"))
+knitr::include_graphics("https://github.com/jacobmacdonald02/OpenResearchWeek_2021/tree/master/Outputs/ExDensGradients.jpeg")
 ```
 
-<img src="/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Outputs/ExDensGradients.jpeg" alt="Figure 1: Theoretic Employment Density Gradients" width="1830" />
-<p class="caption">
-Figure 1: Theoretic Employment Density Gradients
-</p>
+![Figure 1: Theoretic Employment Density Gradients](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/tree/master/Outputs/ExDensGradients.jpeg)
 
 We're going to thus update the subcentre employment zone algorithm from Ban et al. (2017) and then using the flexible update, apply this quickly and efficiently across multiple municipal regions across GB.
 
-2. Data and Study Region
-------------------------
+Section 2: Data and Study Region
+--------------------------------
 
 We'll need three data sources for this work, all openly available and accessible.
 
@@ -180,43 +189,31 @@ WZ.stats[order(-WZ.stats$Avg_Dens), grepl("Region|Dens|count", names(WZ.stats))]
 ### 2.2. Employment Density Plots
 
 ``` r
-knitr::include_graphics(paste0(wd, "/Outputs/LIV/DensDeciles_LIV.jpeg"))
+density.plots[["Liverpool City Region"]]
 ```
 
-<img src="/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Outputs/LIV/DensDeciles_LIV.jpeg" alt="Figure 2: Liverpool Employment Densities" width="2550" />
-<p class="caption">
-Figure 2: Liverpool Employment Densities
-</p>
+![Figure 2: Liverpool Employment Densities](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Code/README_files/figure-markdown_github/Figure%202a-1.png)
 
 ``` r
-knitr::include_graphics(paste0(wd, "/Outputs/MAN/DensDeciles_MAN.jpeg"))
+density.plots[["Greater Manchester"]]
 ```
 
-<img src="/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Outputs/MAN/DensDeciles_MAN.jpeg" alt="Figure 2: Manchester Employment Densities" width="3300" />
-<p class="caption">
-Figure 2: Manchester Employment Densities
-</p>
+![Figure 2: Manchester Employment Densities](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Code/README_files/figure-markdown_github/Figure%202b-1.png)
 
 ``` r
-knitr::include_graphics(paste0(wd, "/Outputs/LND/DensDeciles_LND.jpeg"))
+density.plots[["London"]]
 ```
 
-<img src="/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Outputs/LND/DensDeciles_LND.jpeg" alt="Figure 2: London Employment Densities" width="3300" />
-<p class="caption">
-Figure 2: London Employment Densities
-</p>
+![Figure 2: London Employment Densities](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Code/README_files/figure-markdown_github/Figure%202c-1.png)
 
 ``` r
-knitr::include_graphics(paste0(wd, "/Outputs/WsM/DensDeciles_WsM.jpeg"))
+density.plots[["West Midlands"]]
 ```
 
-<img src="/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Outputs/WsM/DensDeciles_WsM.jpeg" alt="Figure 2: West Midlands Employment Densities" width="3300" />
-<p class="caption">
-Figure 2: West Midlands Employment Densities
-</p>
+![Figure 2: West Midlands Employment Densities](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Code/README_files/figure-markdown_github/Figure%202d-1.png)
 
-3. Urban Monocentricity Validation
-----------------------------------
+Section 3: Urban Monocentricity Validation
+------------------------------------------
 
 The above subcentre identification strategy is contigent upon the single directional *distance from the CBD* and does not take into account the directionality of the employment density with respect to the central area. With many urban areas constrained by natural features such as bodies of water or topography, this uniform decay from the centre may be an unrealistic assumption upon which to identify employment subcentres.
 
@@ -225,43 +222,31 @@ The applicability of this concern can be visuliazed by taking cross sections of 
 -- if we find this looks ok, then great. Hopefully for London it does because it's so concentric. Be nice to find an example that works and one that doesn't. London vs. Cambridge
 
 ``` r
-knitr::include_graphics(paste0(wd, "/Outputs/LIV/DensDeciles_LIV.jpeg"))
+knitr::include_graphics("https://github.com/jacobmacdonald02/OpenResearchWeek_2021/tree/master/Outputs/LIV/DensDeciles_LIV.jpeg")
 ```
 
-<img src="/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Outputs/LIV/DensDeciles_LIV.jpeg" alt="Figure 3: Liverpool Employment Densities" width="2550" />
-<p class="caption">
-Figure 3: Liverpool Employment Densities
-</p>
+![Figure 3: Liverpool Employment Densities](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/tree/master/Outputs/LIV/DensDeciles_LIV.jpeg)
 
 ``` r
-knitr::include_graphics(paste0(wd, "/Outputs/MAN/DensDeciles_MAN.jpeg"))
+knitr::include_graphics("https://github.com/jacobmacdonald02/OpenResearchWeek_2021/tree/master/Outputs/MAN/DensDeciles_MAN.jpeg")
 ```
 
-<img src="/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Outputs/MAN/DensDeciles_MAN.jpeg" alt="Figure 3: Manchester Employment Densities" width="3300" />
-<p class="caption">
-Figure 3: Manchester Employment Densities
-</p>
+![Figure 3: Manchester Employment Densities](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/tree/master/Outputs/MAN/DensDeciles_MAN.jpeg)
 
 ``` r
-knitr::include_graphics(paste0(wd, "/Outputs/LND/DensDeciles_LND.jpeg"))
+knitr::include_graphics("https://github.com/jacobmacdonald02/OpenResearchWeek_2021/tree/master/Outputs/LND/DensDeciles_LND.jpeg")
 ```
 
-<img src="/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Outputs/LND/DensDeciles_LND.jpeg" alt="Figure 3: London Employment Densities" width="3300" />
-<p class="caption">
-Figure 3: London Employment Densities
-</p>
+![Figure 3: London Employment Densities](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/tree/master/Outputs/LND/DensDeciles_LND.jpeg)
 
 ``` r
-knitr::include_graphics(paste0(wd, "/Outputs/WsM/DensDeciles_WsM.jpeg"))
+knitr::include_graphics("https://github.com/jacobmacdonald02/OpenResearchWeek_2021/tree/master/Outputs/WsM/DensDeciles_WsM.jpeg")
 ```
 
-<img src="/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Outputs/WsM/DensDeciles_WsM.jpeg" alt="Figure 3: West Midlands Employment Densities" width="3300" />
-<p class="caption">
-Figure 3: West Midlands Employment Densities
-</p>
+![Figure 3: West Midlands Employment Densities](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/tree/master/Outputs/WsM/DensDeciles_WsM.jpeg)
 
-4. England Regional Employment Subcentre Identification
--------------------------------------------------------
+Section 4: England Regional Employment Subcentre Identification
+---------------------------------------------------------------
 
 ### 4.1. Estimated Employment Density Gradients by Region (Urban Area)
 
@@ -291,42 +276,43 @@ The employment density gradient is obtained by estimating the rate at which the 
 The slope of the ln(*D*<sub>*z*</sub>)=*f*(*x*<sub>*z*</sub>) function represents the rate at which the proportional employment density falls with respect to distance from the CBD. This gradient value is used in the Bin et al. (2017) to trace out the employment density patterns expected at each tract level conditional on distance to the densest point. With the linear version estimated in this paper, we assumed a constant rate with which proportional employment density was discounted in addition to their distance.
 
 ``` r
-knitr::include_graphics(paste0(wd, "/Outputs/LIV/Densities.jpeg"))
+estimated.density[["Liverpool City Region"]]
 ```
 
-<img src="/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Outputs/LIV/Densities.jpeg" alt="Figure 4: Liverpool Density Gradients" width="3300" />
-<p class="caption">
-Figure 4: Liverpool Density Gradients
-</p>
+![Figure 4: Liverpool Density Gradients](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Code/README_files/figure-markdown_github/Figure%204a-1.png)
 
 ``` r
-knitr::include_graphics(paste0(wd, "/Outputs/MAN/Densities.jpeg"))
+estimated.density[["Greater Manchester"]]
 ```
 
-<img src="/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Outputs/MAN/Densities.jpeg" alt="Figure 4: Manchester Density Gradients" width="3300" />
-<p class="caption">
-Figure 4: Manchester Density Gradients
-</p>
+![Figure 4: Manchester Density Gradients](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Code/README_files/figure-markdown_github/Figure%204b-1.png)
 
 ``` r
-knitr::include_graphics(paste0(wd, "/Outputs/LND/Densities.jpeg"))
+estimated.density[["London"]]
 ```
 
-<img src="/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Outputs/LND/Densities.jpeg" alt="Figure 4: London Density Gradients" width="3300" />
-<p class="caption">
-Figure 4: London Density Gradients
-</p>
+![Figure 4: London Density Gradients](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Code/README_files/figure-markdown_github/Figure%204c-1.png)
 
 ``` r
-knitr::include_graphics(paste0(wd, "/Outputs/WsM/Densities.jpeg"))
+estimated.density[["West Midlands"]]
 ```
 
-<img src="/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Outputs/WsM/Densities.jpeg" alt="Figure 4: West Midlands Density Gradients" width="3300" />
-<p class="caption">
-Figure 4: West Midlands Density Gradients
-</p>
+![Figure 4: West Midlands Density Gradients](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Code/README_files/figure-markdown_github/Figure%204d-1.png)
 
 We can also plot the estimated model results from fitting the gradient along the different types of functional form, which helps us evaluate which model we should be choosing.
+
+``` r
+ggplot() +
+  geom_point(data=t[t$max==1,], aes(x = Region, y = Rsq, fill=Model, group = Model, color = Model)) +
+  scale_color_manual(values = c("#d54062", "#ffa36c", "#ebdc87", "#799351")) +
+  geom_point(data=t[t$max==0,], aes(x = Region, y = Rsq, fill=Model, group = Model, color = Model), alpha=0.3) +
+  scale_color_manual(values = c("#d54062", "#ffa36c", "#ebdc87", "#799351")) +
+  labs(y = "R Squared", x = "Region", title = "Estimated Density Gradient Fits") +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.position="bottom", legend.title = element_blank())
+```
+
+![](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Code/README_files/figure-markdown_github/Density%20Gradient%20Model%20Fits%20Plot-1.png)
 
 ### 4.2. Subcentre Identification
 
