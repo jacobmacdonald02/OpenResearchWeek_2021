@@ -32,7 +32,9 @@ p <- ggplot(distributions, aes(x=Value, fill=Type)) +
 p
 ```
 
-![](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/blob/master/README_files/figure-markdown_github/Figure%202a-1.png)
+
+
+![](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/blob/master/README_files/figure-markdown_github/Rmd%20Code%20Example-1.png)
 
 
 
@@ -287,7 +289,7 @@ p <- estimated.density[["Liverpool City Region"]]
 p
 ```
 
-![Figure 4: Liverpool Density Gradients](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Figure%204a-1.png)
+![](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/blob/master/README_files/figure-markdown_github/Figure%202a-1.png)
 
 ``` r
 p <- estimated.density[["Greater Manchester"]]
