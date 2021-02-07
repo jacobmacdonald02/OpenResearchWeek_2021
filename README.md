@@ -32,7 +32,7 @@ p <- ggplot(distributions, aes(x=Value, fill=Type)) +
 p
 ```
 
-![](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Code/README_files/figure-markdown_github/Rmd%20Code%20Example-1.png)
+![](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Rmd%20Code%20Example-1.png)
 
 Section 1: Parametric Employment Subcentre Identification for Great Britain
 ---------------------------------------------------------------------------
@@ -194,28 +194,28 @@ p <- density.plots[["Liverpool City Region"]]
 p
 ```
 
-![Figure 2: Liverpool Employment Densities](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Code/README_files/figure-markdown_github/Figure%202a-1.png)
+![Figure 2: Liverpool Employment Densities](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Figure%202a-1.png)
 
 ``` r
 p <- density.plots[["Greater Manchester"]]
 p
 ```
 
-![Figure 2: Manchester Employment Densities](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Code/README_files/figure-markdown_github/Figure%202b-1.png)
+![Figure 2: Manchester Employment Densities](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Figure%202b-1.png)
 
 ``` r
 p <- density.plots[["London"]]
 p
 ```
 
-![Figure 2: London Employment Densities](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Code/README_files/figure-markdown_github/Figure%202c-1.png)
+![Figure 2: London Employment Densities](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Figure%202c-1.png)
 
 ``` r
 p <- density.plots[["West Midlands"]]
 p
 ```
 
-![Figure 2: West Midlands Employment Densities](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Code/README_files/figure-markdown_github/Figure%202d-1.png)
+![Figure 2: West Midlands Employment Densities](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Figure%202d-1.png)
 
 Section 3: Urban Monocentricity Validation
 ------------------------------------------
@@ -285,28 +285,28 @@ p <- estimated.density[["Liverpool City Region"]]
 p
 ```
 
-![Figure 4: Liverpool Density Gradients](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Code/README_files/figure-markdown_github/Figure%204a-1.png)
+![Figure 4: Liverpool Density Gradients](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Figure%204a-1.png)
 
 ``` r
 p <- estimated.density[["Greater Manchester"]]
 p
 ```
 
-![Figure 4: Manchester Density Gradients](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Code/README_files/figure-markdown_github/Figure%204b-1.png)
+![Figure 4: Manchester Density Gradients](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Figure%204b-1.png)
 
 ``` r
 p <- estimated.density[["London"]]
 p
 ```
 
-![Figure 4: London Density Gradients](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Code/README_files/figure-markdown_github/Figure%204c-1.png)
+![Figure 4: London Density Gradients](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Figure%204c-1.png)
 
 ``` r
 p <- estimated.density[["West Midlands"]]
 p
 ```
 
-![Figure 4: West Midlands Density Gradients](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Code/README_files/figure-markdown_github/Figure%204d-1.png)
+![Figure 4: West Midlands Density Gradients](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Figure%204d-1.png)
 
 We can also plot the estimated model results from fitting the gradient along the different types of functional form, which helps us evaluate which model we should be choosing.
 
@@ -321,7 +321,7 @@ ggplot() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.position="bottom", legend.title = element_blank())
 ```
 
-![](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Code/README_files/figure-markdown_github/Density%20Gradient%20Model%20Fits%20Plot-1.png)
+![](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Density%20Gradient%20Model%20Fits%20Plot-1.png)
 
 ### 4.2. Subcentre Identification
 
