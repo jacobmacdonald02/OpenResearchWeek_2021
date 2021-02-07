@@ -25,10 +25,11 @@ y <- data.frame(Type="Chi-Sq.", Value=rchisq(1000, 5))
 
 distributions <- rbind(x, y)
 
-ggplot(distributions, aes(x=Value, fill=Type)) +
+p <- ggplot(distributions, aes(x=Value, fill=Type)) +
   geom_density(alpha=0.4) +
   scale_fill_manual(values=c("#999999", "#E69F00", "#56B4E9")) +
   theme(legend.position="bottom", legend.title = element_blank())
+p
 ```
 
 ![](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Code/README_files/figure-markdown_github/Rmd%20Code%20Example-1.png)
@@ -189,25 +190,29 @@ WZ.stats[order(-WZ.stats$Avg_Dens), grepl("Region|Dens|count", names(WZ.stats))]
 ### 2.2. Employment Density Plots
 
 ``` r
-density.plots[["Liverpool City Region"]]
+p <- density.plots[["Liverpool City Region"]]
+p
 ```
 
 ![Figure 2: Liverpool Employment Densities](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Code/README_files/figure-markdown_github/Figure%202a-1.png)
 
 ``` r
-density.plots[["Greater Manchester"]]
+p <- density.plots[["Greater Manchester"]]
+p
 ```
 
 ![Figure 2: Manchester Employment Densities](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Code/README_files/figure-markdown_github/Figure%202b-1.png)
 
 ``` r
-density.plots[["London"]]
+p <- density.plots[["London"]]
+p
 ```
 
 ![Figure 2: London Employment Densities](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Code/README_files/figure-markdown_github/Figure%202c-1.png)
 
 ``` r
-density.plots[["West Midlands"]]
+p <- density.plots[["West Midlands"]]
+p
 ```
 
 ![Figure 2: West Midlands Employment Densities](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Code/README_files/figure-markdown_github/Figure%202d-1.png)
@@ -276,25 +281,29 @@ The employment density gradient is obtained by estimating the rate at which the 
 The slope of the ln(*D*<sub>*z*</sub>)=*f*(*x*<sub>*z*</sub>) function represents the rate at which the proportional employment density falls with respect to distance from the CBD. This gradient value is used in the Bin et al. (2017) to trace out the employment density patterns expected at each tract level conditional on distance to the densest point. With the linear version estimated in this paper, we assumed a constant rate with which proportional employment density was discounted in addition to their distance.
 
 ``` r
-estimated.density[["Liverpool City Region"]]
+p <- estimated.density[["Liverpool City Region"]]
+p
 ```
 
 ![Figure 4: Liverpool Density Gradients](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Code/README_files/figure-markdown_github/Figure%204a-1.png)
 
 ``` r
-estimated.density[["Greater Manchester"]]
+p <- estimated.density[["Greater Manchester"]]
+p
 ```
 
 ![Figure 4: Manchester Density Gradients](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Code/README_files/figure-markdown_github/Figure%204b-1.png)
 
 ``` r
-estimated.density[["London"]]
+p <- estimated.density[["London"]]
+p
 ```
 
 ![Figure 4: London Density Gradients](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Code/README_files/figure-markdown_github/Figure%204c-1.png)
 
 ``` r
-estimated.density[["West Midlands"]]
+p <- estimated.density[["West Midlands"]]
+p
 ```
 
 ![Figure 4: West Midlands Density Gradients](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/Code/README_files/figure-markdown_github/Figure%204d-1.png)
