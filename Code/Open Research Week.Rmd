@@ -53,10 +53,11 @@ y <- data.frame(Type="Chi-Sq.", Value=rchisq(1000, 5))
 
 distributions <- rbind(x, y)
 
-ggplot(distributions, aes(x=Value, fill=Type)) +
+p <- ggplot(distributions, aes(x=Value, fill=Type)) +
   geom_density(alpha=0.4) +
   scale_fill_manual(values=c("#999999", "#E69F00", "#56B4E9")) +
   theme(legend.position="bottom", legend.title = element_blank())
+p
 ```
 
 
@@ -373,19 +374,23 @@ names(density.plots) <- names(split(WZ.db, WZ.db$Region))
 ```
 
 ```{r Figure 2a, fig.cap="Figure 2: Liverpool Employment Densities"}
-density.plots[["Liverpool City Region"]]
+p <- density.plots[["Liverpool City Region"]]
+p
 ```
 
 ```{r Figure 2b, fig.cap="Figure 2: Manchester Employment Densities"}
-density.plots[["Greater Manchester"]]
+p <- density.plots[["Greater Manchester"]]
+p
 ```
 
 ```{r Figure 2c, fig.cap="Figure 2: London Employment Densities"}
-density.plots[["London"]]
+p <- density.plots[["London"]]
+p
 ```
 
 ```{r Figure 2d, fig.cap="Figure 2: West Midlands Employment Densities"}
-density.plots[["West Midlands"]]
+p <- density.plots[["West Midlands"]]
+p
 ```
 
 
@@ -709,19 +714,23 @@ names(estimated.density) <- unique(as.character(regions$Region))
 
 
 ```{r Figure 4a, fig.cap="Figure 4: Liverpool Density Gradients"}
-estimated.density[["Liverpool City Region"]]
+p <- estimated.density[["Liverpool City Region"]]
+p
 ```
 
 ```{r Figure 4b, fig.cap="Figure 4: Manchester Density Gradients"}
-estimated.density[["Greater Manchester"]]
+p <- estimated.density[["Greater Manchester"]]
+p
 ```
 
 ```{r Figure 4c, fig.cap="Figure 4: London Density Gradients"}
-estimated.density[["London"]]
+p <- estimated.density[["London"]]
+p
 ```
 
 ```{r Figure 4d, fig.cap="Figure 4: West Midlands Density Gradients"}
-estimated.density[["West Midlands"]]
+p <- estimated.density[["West Midlands"]]
+p
 ```
 
 
