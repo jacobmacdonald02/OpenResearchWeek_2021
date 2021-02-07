@@ -259,7 +259,7 @@ save.names <- as.data.frame(rbind(cbind("Cambridgeshire and Peterborough", "CmP"
   cbind("West Midlands", "WsM"),
   cbind("West of England", "WsE"),
   cbind("West Yorkshire", "WsY")))
-names(save.names) <- c("Region", "Save_Name")
+names(save.names) <- c("Region", "Save_Name") 
 
 regions <- merge(regions, save.names, all.x=TRUE, sort=FALSE, by="Region")
 rm(save.names)
