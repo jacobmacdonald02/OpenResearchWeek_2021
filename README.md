@@ -32,7 +32,9 @@ p <- ggplot(distributions, aes(x=Value, fill=Type)) +
 p
 ```
 
-![](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Rmd%20Code%20Example-1.png)
+![](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/tree/master/README_files/figure-markdown_github/Rmd Code Example-1.png?raw=true)
+
+
 
 Section 1: Parametric Employment Subcentre Identification for Great Britain
 ---------------------------------------------------------------------------
