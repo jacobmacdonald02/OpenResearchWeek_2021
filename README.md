@@ -32,7 +32,7 @@ p <- ggplot(distributions, aes(x=Value, fill=Type)) +
 p
 ```
 
-![](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/tree/master/README_files/figure-markdown_github/Rmd%Code%Example-1.png?raw=true)
+![](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/tree/master/README_files/figure-markdown_github/Rmd%Code%Example-1.png?)
 
 
 
