@@ -13,7 +13,7 @@ Using some work on open data, this research analytical showcases an online prese
 
 Primarily, **Git** and **Github** are used to monitor and version control coding documents. This has developed itself into a hosting site for a wide range and types of outputs.
 
-During this session, we'll overview the main ways and examples of how to incorporate: \* Text \* Code \* Visualization \* Methodologies \* Analyses
+During this session, we'll overview the main ways and examples of how to incorporate: - Text - Code - Visualization - Methodologies - Analyses
 
 One of the main benefits of this format is the sharing of code and data outputs
 
@@ -36,6 +36,8 @@ p
 
 Section 1: Parametric Employment Subcentre Identification for Great Britain
 ---------------------------------------------------------------------------
+
+**A geographic data science open research application**
 
 Urban metropolitan areas are often seen to comprise clusters of employment over space; often with a primary nucleus and surrounding satellite *subcentres* where employment densities are strong.
 
@@ -61,7 +63,7 @@ An employment density gradient can be estimated on these data to define the shap
 
 The functional form of *f*(*x*) defines the decaying pattern of how we would expect densities to decline moving away from the dense CBD.
 
-In log form *l**n*(*D*<sub>*x*</sub>), this function represents the proportional decay of density as influenced by distance to the CBD.
+In log form ln(*D*<sub>*x*</sub>), this function represents the proportional decay of density as influenced by distance to the CBD.
 
 ln(*D*<sub>*x*</sub>)=ln(*a*)+*f*(*x*)
 
@@ -89,19 +91,19 @@ p1 <- ggplot(data.frame(x, y = 6*exp(-x)), aes(x,y)) +
   stat_function(fun=function(x) 6*exp(-x), colour="gray65") +
   scale_y_continuous(limits = c(0, 6), expand = c(0, 0)) +
   scale_x_continuous(limits = c(0, 6), expand = c(0, 0)) +
-  labs(y = "Density", caption="",
+  labs(y = "Density", x = "Distance to CBD (x)", caption="",
     title = "Employment Density Gradients", subtitle = expression(paste("(a) ", D==a,e^-b[1],""^x))) +
   theme_classic() +
-  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank(),  axis.title.x=element_blank(),
+  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank(), 
     axis.text.y=element_blank(), axis.ticks.y=element_blank())
 p2 <- ggplot(data.frame(x, y = 5.75-x), aes(x,y)) +
   stat_function(fun=function(x) 5.75-x, colour="gray65") +
   scale_y_continuous(limits = c(0, 6), expand = c(0, 0)) +
   scale_x_continuous(limits = c(0, 6), expand = c(0, 0)) +
-  labs(y = "log Density", caption="Linear f(x) proportional decay",
+  labs(y = "log Density", x = "Distance to CBD (x)", caption="Linear f(x) proportional decay",
     title = "", subtitle = expression(paste("(b) ", ln(D)==ln(a)-b[1],x))) +
   theme_classic() +
-  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank(), axis.title.x=element_blank(),
+  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank(), 
     axis.text.y=element_blank(), axis.ticks.y=element_blank(), plot.caption = element_text(face = "italic"))
 grid.arrange(p1, p2, ncol=2)
 ```
@@ -175,60 +177,22 @@ WZ.stats <- as_tibble(WZ.db) %>%
   filter(!is.na(Region)) %>%
   arrange(desc(Total_Emp))
 
-knitr::kable(WZ.stats[order(-WZ.stats$Total_Emp), grepl("Region|Emp", names(WZ.stats))])
+knitr::kable(WZ.stats[order(-WZ.stats$Total_Emp), c("Region", "Total_Emp", "Total_Area", "Avg_Dens", "WZ_count")])
 ```
 
-| Region                          |  Total\_Emp|  Avg\_Emp|  Med\_Emp|  Min\_Emp|  Max\_Emp|   SD\_Emp|
-|:--------------------------------|-----------:|---------:|---------:|---------:|---------:|---------:|
-| London                          |     4500481|  551.9354|     401.0|       103|     11403|  613.3386|
-| Greater Manchester              |     1243218|  490.6148|     375.0|       106|      9547|  486.4084|
-| West Midlands                   |     1197976|  506.7580|     387.0|       113|      7939|  481.3485|
-| West Yorkshire                  |     1036058|  494.3025|     374.0|       124|      7257|  455.1762|
-| Liverpool City Region           |      630377|  488.2858|     375.0|       113|      5754|  416.8719|
-| Sheffield City Region           |      579575|  509.2926|     386.0|       155|      7050|  457.7573|
-| West of England                 |      467957|  498.3568|     374.0|       127|      8947|  501.5129|
-| Cambridgeshire and Peterborough |      416373|  492.7491|     381.0|       101|      7337|  425.3815|
-| North East                      |      373278|  486.0391|     362.5|       131|      6565|  462.5036|
-| Tees Valley                     |      281298|  480.0307|     376.0|       156|      7837|  443.9992|
-| North of Tyne                   |      253873|  562.9113|     405.0|       121|      6771|  600.3466|
-
-Or similarly descriptive statistics on size or average small area density.
-
-``` r
-knitr::kable(WZ.stats[order(-WZ.stats$Total_Area), grepl("Region|Area", names(WZ.stats))])
-```
-
-| Region                          |  Total\_Area|  Avg\_Area|  Med\_Area|  Min\_Area|   Max\_Area|    SD\_Area|
-|:--------------------------------|------------:|----------:|----------:|----------:|-----------:|-----------:|
-| Cambridgeshire and Peterborough |    337255.43|  399.11885|  47.762026|  0.2060222|   8346.0595|   836.02686|
-| North East                      |    243172.53|  316.63090|  44.726467|  0.1928011|  22527.5945|  1379.86731|
-| West Yorkshire                  |    202883.62|   96.79562|  28.326656|  0.1189364|   6315.8853|   284.40668|
-| London                          |    157287.02|   19.28955|   8.811943|  0.0403218|    922.0444|    42.53142|
-| Sheffield City Region           |    154793.41|  136.02233|  37.745286|  0.1445606|  11662.4321|   492.68673|
-| Greater Manchester              |    127596.90|   50.35395|  22.223517|  0.1049514|   2585.5374|   126.65268|
-| West of England                 |     95762.41|  101.98339|  19.534042|  0.1325896|   3139.8320|   316.15281|
-| West Midlands                   |     90160.97|   38.13916|  23.966201|  0.1823792|   1662.1176|    72.92285|
-| Tees Valley                     |     79229.52|  135.20395|  32.023780|  0.4261533|   3263.6117|   393.95844|
-| Liverpool City Region           |     72042.84|   55.80390|  26.300237|  0.0956581|   1335.4281|   112.21359|
-| North of Tyne                   |     19525.07|   43.29284|  20.116010|  0.2169694|   1528.1743|    99.29295|
-
-``` r
-knitr::kable(WZ.stats[order(-WZ.stats$Avg_Dens), grepl("Region|Dens|count", names(WZ.stats))])
-```
-
-| Region                          |   Avg\_Dens|  Med\_Dens|  Min\_Dens|   Max\_Dens|   SD\_Dens|  WZ\_count|
-|:--------------------------------|-----------:|----------:|----------:|-----------:|----------:|----------:|
-| London                          |  2637852.51|  323.50411|  0.3474238|  88094.2273|  1252.9912|       8154|
-| Greater Manchester              |   244493.27|   96.48511|  0.1423814|  12155.1947|   387.6941|       2534|
-| West Midlands                   |   206545.95|   87.37139|  0.3218531|   7440.5423|   326.9675|       2364|
-| West Yorkshire                  |   173156.91|   82.61303|  0.0519325|   7785.6713|   287.5536|       2096|
-| Liverpool City Region           |   102759.44|   79.59678|  0.2140405|   7637.3918|   306.7437|       1291|
-| West of England                 |   101675.19|  108.28029|  0.1051173|   4502.6148|   292.4186|        939|
-| Sheffield City Region           |    69949.42|   61.46698|  0.0319830|   5091.2920|   211.6335|       1138|
-| Cambridgeshire and Peterborough |    50669.82|   59.96428|  0.0297146|   7406.9701|   286.6337|        845|
-| North of Tyne                   |    48033.52|  106.50447|  0.4220723|   2489.5545|   237.0000|        451|
-| Tees Valley                     |    30746.70|   52.46878|  0.0800669|    915.1636|   101.5189|        586|
-| North East                      |    27721.54|   36.09575|  0.0150038|   2022.8099|   108.9077|        768|
+| Region                          |  Total\_Emp|  Total\_Area|   Avg\_Dens|  WZ\_count|
+|:--------------------------------|-----------:|------------:|-----------:|----------:|
+| London                          |     4500481|    157287.02|  2637852.51|       8154|
+| Greater Manchester              |     1243218|    127596.90|   244493.27|       2534|
+| West Midlands                   |     1197976|     90160.97|   206545.95|       2364|
+| West Yorkshire                  |     1036058|    202883.62|   173156.91|       2096|
+| Liverpool City Region           |      630377|     72042.84|   102759.44|       1291|
+| Sheffield City Region           |      579575|    154793.41|    69949.42|       1138|
+| West of England                 |      467957|     95762.41|   101675.19|        939|
+| Cambridgeshire and Peterborough |      416373|    337255.43|    50669.82|        845|
+| North East                      |      373278|    243172.53|    27721.54|        768|
+| Tees Valley                     |      281298|     79229.52|    30746.70|        586|
+| North of Tyne                   |      253873|     19525.07|    48033.52|        451|
 
 ### 2.2. Employment Density Plots
 
@@ -237,6 +201,21 @@ Plotting density decile ranks for each of the small area (WZ) areas across the c
 It is against these density plots that we want to evaluate the validity of the monocentric model - and to which we apply the subcentre identification algorithm.
 
 ``` r
+density.plots <- lapply(split(WZ.db, WZ.db$Region), function(x){
+  ggplot() +
+    geom_sf(data = x, aes(fill = dRNK.lcl), lwd = 0) +
+    scale_fill_manual(values=colorRampPalette(c("royalblue", "springgreen", "yellow", "red"))(10), na.translate=FALSE) +
+    labs(title = x$Region[1], subtitle = "Local Employment Density Deciles") +
+    scale_x_continuous(expand = c(0,0)) +
+    coord_sf() +
+    guides(shape = guide_legend(override.aes = list(size = 1)), fill = guide_legend(override.aes = list(size = 1)),
+      color = guide_legend(override.aes = list(size = 1))) +
+    theme_classic() +
+    theme(axis.text.x=element_blank(), axis.ticks.x=element_blank(),
+      axis.text.y=element_blank(), axis.ticks.y=element_blank(), legend.position="bottom", legend.title = element_blank())
+})
+names(density.plots) <- names(split(WZ.db, WZ.db$Region))
+
 p <- density.plots[["Liverpool City Region"]]
 p
 ```
@@ -257,60 +236,16 @@ p
 
 ![Figure 2: London Employment Densities](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Figure%202c-1.png)
 
-Section 3: Urban Monocentricity Validation
-------------------------------------------
-
-For a robust research methodology, we want to evaluate whether the assumed model is appropriate across different urban areas. The *Monocentric* city model is contingent on single directional distance from the central business district.
-
-With many urban areas constrained by natural features such as bodies of water or topography, this uniform decay from the centre may be an unrealistic assumption upon which to identify employment subcentres.
-
--   Urban areas are much more complex, so we want to explore whether these stylized patterns exist in our actual data.
-
-The applicability of this concern can be visuliazed by taking cross sections of the urban area centred on the CBD. We take bands of latitude and longitude points respectively around the presumed CBD and plot densities and employment across the univariate directions East-West and North-South respectively.
-
-And for Liverpool
-
-``` r
-p <- ray.plots[["Liverpool City Region"]]
-p
-```
-
-![Figure 3: Liverpool Bands](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Figure%203-2-1.png)
-
-With corresponding patterns in observed employment density:
-
-``` r
-p <- cross.sections[["Liverpool City Region"]][[1]]
-p
-```
-
-    ## TableGrob (2 x 1) "arrange": 2 grobs
-    ##   z     cells    name           grob
-    ## 1 1 (1-1,1-1) arrange gtable[layout]
-    ## 2 2 (2-2,1-1) arrange gtable[layout]
-
-``` r
-p <- cross.sections[["Liverpool City Region"]][[4]]
-p
-```
-
-    ## TableGrob (2 x 1) "arrange": 2 grobs
-    ##   z     cells    name           grob
-    ## 1 1 (1-1,1-1) arrange gtable[layout]
-    ## 2 2 (2-2,1-1) arrange gtable[layout]
-
-Section 4: England Regional Employment Subcentre Identification
+Section 3: England Regional Employment Subcentre Identification
 ---------------------------------------------------------------
 
-### 4.1. Estimated Employment Density Gradients by Region (Urban Area)
+### 3.1. Estimated Employment Density Gradients by Region (Urban Area)
 
-Included in this repository is the subcentre identification algorithm tool itself located in *Subcentre\_Identification.R*
+Included in this repository is the subcentre identification algorithm tool itself located in [Subcentre\_Identification.R](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/blob/master/Code/Subcentre_Identification.R "Identifying Employment Subcentre Identification Algorithm")
 
 This updated version of [Ban et al. 2017](https://www.mdpi.com/2073-445X/6/1/17/htm "Identifying Employment Subcenters: The Method of Exponentially Declining Cutoffs") can be applied to the different regions across England to systematically identify where we have **employment hotspots**
 
-In first plotting the estimated density gradients of regions across England, we can select a more refined baseline employment levels and density values from which we evaluate subcentre deviations. The *distance* variable generated (within each region group) measures the distance of each Workzone tract from the respective tract within the region which has the highest employment density. While the choice of 'where' constitutes the 'central' area of an urban region, using the maximum density tract evaluates ......
-
-For each of the estimated log (proportiate) gradient values across the different regions, we can extract the beta parameters from which we can build the different functional forms and generate a plot for each region. This allows us to view how different estimated functional forms can potentially impact
+We can estimate and evaluate the fit of each of the assumed model functional forms. We want to make sure we select the most appropriate form against which to look for outlier employment hotspots.
 
 ``` r
 p <- estimated.density[["Liverpool City Region"]]
@@ -349,9 +284,11 @@ p
 
 ![](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Density%20Gradient%20Model%20Fits%20Plot-1.png)
 
-### 4.2. Subcentre Identification
+### 3.2. Subcentre Identification
 
-We get log(a) from the estimation directly, so we can use that as one of the options for our density cutoff can't we? That; average within some distance or some specified value per ha. already determined
+Included in this repository is the subcentre identification algorithm tool itself located in [Subcentre\_Identification.R](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/blob/master/Code/Subcentre_Identification.R "Identifying Employment Subcentre Identification Algorithm")
+
+While these applications are relatively simple 'out-of-the-box' application of the algorithm, the flexibility, speed, and openess of the data and research means that it can serve as a benchmark tool applied quickly, consistently and easily modified to different local contexts.
 
 ``` r
 p <- SC.plot[[1]]
@@ -367,14 +304,18 @@ p
 
 ![Figure 4: London Density Gradients](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Figure%205b-1.png)
 
-References
-----------
+Selected References
+-------------------
 
-Office for National Statistics (ONS). 2014. "Workplace Zones: A new geography for workplace statistics" May - Bruce Mitchell <https://data.gov.uk/dataset/6620567e-f237-4c6b-b561-64a2bc218783/workplace-zones-a-new-geography-for-workplace-statistics>
+[Ban, Jifei, Richard Arnott, and Jacob L. Macdonald. 2017. "Identifying Employment Subcenters: The Method of Exponentially Declining Cutoffs." Land 6 (17).](https://www.mdpi.com/2073-445X/6/1/17/htm)
 
-Bin et al. (2017)
+<https://happygitwithr.com/>
 
-[Nomis](https://www.nomisweb.co.uk/ "ONS Nomis Labour Market Statistics") Table WP102EW
+[Office for National Statistics. 2014. "Workplace Zones: A new geography for workplace statistics."](https://data.gov.uk/dataset/6620567e-f237-4c6b-b561-64a2bc218783/workplace-zones-a-new-geography-for-workplace-statistics)
+
+[Office for National Statistics Nomis](https://www.nomisweb.co.uk/ "ONS Nomis Labour Market Statistics")
+
+[Office for National Statistics Open Geography Portal](https://geoportal.statistics.gov.uk/ "The Open Geography Portal")
 
 Links From The Slides
 ---------------------

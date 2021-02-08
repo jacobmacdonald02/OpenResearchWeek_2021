@@ -37,11 +37,11 @@ Using some work on open data, this research analytical showcases an online prese
 Primarily, **Git** and **Github** are used to monitor and version control coding documents. This has developed itself into a hosting site for a wide range and types of outputs. 
 
 During this session, we'll overview the main ways and examples of how to incorporate:
-* Text 
-* Code
-* Visualization
-* Methodologies
-* Analyses
+- Text 
+- Code
+- Visualization
+- Methodologies
+- Analyses
 
 One of the main benefits of this format is the sharing of code and data outputs
 
@@ -63,6 +63,8 @@ p
 
 
 ## Section 1: Parametric Employment Subcentre Identification for Great Britain
+
+**A geographic data science open research application**
 
 
 Urban metropolitan areas are often seen to comprise clusters of employment over space; often with a primary nucleus and surrounding satellite *subcentres* where employment densities are strong.
@@ -97,7 +99,7 @@ An employment density gradient can be estimated on these data to define the shap
 
 The functional form of $f(x)$ defines the decaying pattern of how we would expect densities to decline moving away from the dense CBD.
 
-In log form $ln(D_x)$, this function represents the proportional decay of density as influenced by distance to the CBD.
+In log form $\ln(D_x)$, this function represents the proportional decay of density as influenced by distance to the CBD.
 
 $$\ln(D_x)=\ln(a)+f(x)$$
 
@@ -133,19 +135,19 @@ p1 <- ggplot(data.frame(x, y = 6*exp(-x)), aes(x,y)) +
   stat_function(fun=function(x) 6*exp(-x), colour="gray65") +
   scale_y_continuous(limits = c(0, 6), expand = c(0, 0)) +
   scale_x_continuous(limits = c(0, 6), expand = c(0, 0)) +
-  labs(y = "Density", caption="",
+  labs(y = "Density", x = "Distance to CBD (x)", caption="",
     title = "Employment Density Gradients", subtitle = expression(paste("(a) ", D==a,e^-b[1],""^x))) +
   theme_classic() +
-  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank(),  axis.title.x=element_blank(),
+  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank(), 
     axis.text.y=element_blank(), axis.ticks.y=element_blank())
 p2 <- ggplot(data.frame(x, y = 5.75-x), aes(x,y)) +
   stat_function(fun=function(x) 5.75-x, colour="gray65") +
   scale_y_continuous(limits = c(0, 6), expand = c(0, 0)) +
   scale_x_continuous(limits = c(0, 6), expand = c(0, 0)) +
-  labs(y = "log Density", caption="Linear f(x) proportional decay",
+  labs(y = "log Density", x = "Distance to CBD (x)", caption="Linear f(x) proportional decay",
     title = "", subtitle = expression(paste("(b) ", ln(D)==ln(a)-b[1],x))) +
   theme_classic() +
-  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank(), axis.title.x=element_blank(),
+  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank(), 
     axis.text.y=element_blank(), axis.ticks.y=element_blank(), plot.caption = element_text(face = "italic"))
 grid.arrange(p1, p2, ncol=2)
 ```
@@ -154,25 +156,22 @@ grid.arrange(p1, p2, ncol=2)
 (c, d) $$f(x) = \alpha + \beta_1 \cdot x - \beta_2 \cdot x^2$$
 
 ```{r Gradient Decay: Squared1, include=FALSE}
-#   #stat_function(fun=function(x) 10-8*x+(x*x), colour="black", xlim = c(1, 4)) +
-#   #stat_function(fun=function(x) 10-8*x+(x*x), colour="black", xlim = c(4, 5), linetype = "dashed") +
-
-p1 <- ggplot(data.frame(x, y = 2*exp(x-x^2)), aes(x,y)) +
-  stat_function(fun=function(x) 2*exp(x-x^2), colour="gray65") +
+p1 <- ggplot(data.frame(x, y = 2*exp(0.2+0.5*x-x^2)), aes(x,y)) +
+  stat_function(fun=function(x) 2*exp(0.2+0.5*x-x^2), colour="gray65") +
   scale_y_continuous(limits = c(0, 2.8), expand = c(0, 0)) +
   scale_x_continuous(limits = c(0, 3), expand = c(0, 0)) +
-  labs(y = "Density", caption="", subtitle = expression(paste("(c) ", D==a,e^b[1],""^x,""^-b[2],""^x^2))) +
+  labs(y = "Density", x = "Distance to CBD (x)", caption="", subtitle = expression(paste("(c) ", D==a,e^b[1],""^x,""^-b[2],""^x^2))) +
   theme_classic() +
-  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank(),  axis.title.x=element_blank(),
+  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank(),
     axis.text.y=element_blank(), axis.ticks.y=element_blank())
 p2 <- ggplot(data.frame(x, y = log(5*exp(x-x^2))), aes(x,y)) +
   stat_function(fun=function(x) log(5*exp(x-x^2)), colour="gray65") +
   scale_y_continuous(limits = c(0, 2), expand = c(0, 0)) +
   scale_x_continuous(limits = c(0, 2), expand = c(0, 0)) +
-  labs(y = "log Density", caption="Quadratic f(x) proportional decay",
+  labs(y = "log Density", x = "Distance to CBD (x)", caption="Quadratic f(x) proportional decay",
     subtitle = expression(paste("(d) ", ln(D)==ln(a)+b[1],x,-b[2],x^2))) +
   theme_classic() +
-  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank(),  axis.title.x=element_blank(),
+  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank(),
     axis.text.y=element_blank(), axis.ticks.y=element_blank(), plot.caption = element_text(face = "italic"))
 ```
 
@@ -184,24 +183,28 @@ grid.arrange(p1, p2, ncol=2)
 (e, f) $$f(x) = \alpha - \beta_1 \cdot x + \beta_2 \cdot x^2$$
 
 ```{r Gradient Decay: Squared2, include=FALSE}
+#   #stat_function(fun=function(x) 10-8*x+(x*x), colour="black", xlim = c(1, 4)) +
+#   #stat_function(fun=function(x) 10-8*x+(x*x), colour="black", xlim = c(4, 5), linetype = "dashed") +
+
 p1 <- ggplot(data.frame(x, y = 3*exp(-3.4*x+0.9*x^2)), aes(x,y)) +
-  stat_function(fun=function(x) 3*exp(-3.4*x+0.9*x^2), colour="gray65") +
+  stat_function(fun=function(x) 3*exp(-3.4*x+0.9*x^2), colour="gray65", xlim = c(0, 2)) +
+  stat_function(fun=function(x) 3*exp(-3.4*x+0.9*x^2), colour="gray65", xlim = c(2, 3), linetype = "dashed") +
   scale_y_continuous(limits = c(0, 3.2), expand = c(0, 0)) +
   scale_x_continuous(limits = c(0, 3), expand = c(0, 0)) +
-  labs(y = "Density", caption="", subtitle = expression(paste("(e) ", D==a,e^-b[1],""^x,""^+b[2],""^x^2))) +
+  labs(y = "Density", x = "Distance to CBD (x)", caption="", subtitle = expression(paste("(e) ", D==a,e^-b[1],""^x,""^+b[2],""^x^2))) +
   theme_classic() +
-  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank(),  axis.title.x=element_blank(),
+  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank(),
     axis.text.y=element_blank(), axis.ticks.y=element_blank())
 p2 <- ggplot(data.frame(x, y = log(20*exp(-4.8*x+1.95*x^2) ) ), aes(x,y)) +
-  stat_function(fun=function(x) log(20*exp(-4.8*x+1.95*x^2) ), colour="gray65") +
+  stat_function(fun=function(x) log(20*exp(-4.8*x+1.95*x^2) ), colour="gray65", xlim = c(0, 1.23)) +
+  stat_function(fun=function(x) log(20*exp(-4.8*x+1.95*x^2) ), colour="gray65", xlim = c(1.23, 2), linetype = "dashed") +
   scale_y_continuous(limits = c(0, 3), expand = c(0, 0)) +
-  scale_x_continuous(limits = c(0, 3), expand = c(0, 0)) +
-  labs(y = "log Density", caption="Quadratic f(x) proportional decay",
+  scale_x_continuous(limits = c(0, 2), expand = c(0, 0)) +
+  labs(y = "log Density", x = "Distance to CBD (x)", caption="Quadratic f(x) proportional decay",
     subtitle = expression(paste("(f) ", ln(D)==ln(a)-b[1],x,+b[2],x^2))) +
   theme_classic() +
-  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank(),  axis.title.x=element_blank(),
+  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank(),
     axis.text.y=element_blank(), axis.ticks.y=element_blank(), plot.caption = element_text(face = "italic"))
-grid.arrange(p1, p2, ncol=2)
 ```
 
 ```{r Gradient Decay: Squared2 Print}
@@ -216,7 +219,7 @@ p1 <- ggplot(data.frame(x, y = 0.75*exp(-1*x+3.7*x^2-9*x^3) ), aes(x,y)) +
   stat_function(fun=function(x) 0.75*exp(-1*x+3.7*x^2-9*x^3), colour="gray65") +
   scale_y_continuous(limits = c(0, 0.8), expand = c(0, 0)) +
   scale_x_continuous(limits = c(0, 1), expand = c(0, 0)) +
-  labs(y = "Density", caption="", subtitle = expression(paste("(g) ", D==a,e^c-b[1],""^x,""^+b[2],""^x^2,""^-b[3],""^x^3))) +
+  labs(y = "Density", x = "Distance to CBD (x)", caption="", subtitle = expression(paste("(g) ", D==a,e^c-b[1],""^x,""^+b[2],""^x^2,""^-b[3],""^x^3))) +
   theme_classic() +
   theme(axis.text.x=element_blank(), axis.ticks.x=element_blank(),  axis.title.x=element_blank(),
     axis.text.y=element_blank(), axis.ticks.y=element_blank())
@@ -224,7 +227,7 @@ p2 <- ggplot(data.frame(x, y = log(5*exp(-2*x+4*x^2-4*x^3) ) ), aes(x,y)) +
   stat_function(fun=function(x) log(5*exp(-2*x+4*x^2-4*x^3) ), colour="gray65") +
   scale_y_continuous(limits = c(0, 2.7), expand = c(0, 0)) +
   scale_x_continuous(limits = c(0, 1), expand = c(0, 0)) +
-  labs(y = "log Density", caption="Cubic f(x) proportional decay", subtitle = expression(paste("(h) ", ln(D)==ln(a)-b[1],x,+b[2],x^2,-b[3],x^3))) +
+  labs(y = "log Density", x = "Distance to CBD (x)", caption="Cubic f(x) proportional decay", subtitle = expression(paste("(h) ", ln(D)==ln(a)-b[1],x,+b[2],x^2,-b[3],x^3))) +
   theme_classic() +
   theme(axis.text.x=element_blank(), axis.ticks.x=element_blank(),  axis.title.x=element_blank(),
     axis.text.y=element_blank(), axis.ticks.y=element_blank(), plot.caption = element_text(face = "italic"))
@@ -360,27 +363,19 @@ WZ.stats <- as_tibble(WZ.db) %>%
   filter(!is.na(Region)) %>%
   arrange(desc(Total_Emp))
 
-knitr::kable(WZ.stats[order(-WZ.stats$Total_Emp), grepl("Region|Emp", names(WZ.stats))])
-```
-
-
-Or similarly descriptive statistics on size or average small area density.
-
-
-```{r WZ Size Statistics by Region}
-knitr::kable(WZ.stats[order(-WZ.stats$Total_Area), grepl("Region|Area", names(WZ.stats))])
-```
-
-
-```{r WZ Density Statistics by Region}
-knitr::kable(WZ.stats[order(-WZ.stats$Avg_Dens), grepl("Region|Dens|count", names(WZ.stats))])
+knitr::kable(WZ.stats[order(-WZ.stats$Total_Emp), c("Region", "Total_Emp", "Total_Area", "Avg_Dens", "WZ_count")])
 ```
 
 
 
 ### 2.2. Employment Density Plots
 
-```{r Generate Map of Employment Density, include=FALSE}
+Plotting density decile ranks for each of the small area (WZ) areas across the city reveal hotspot patterns and spatial distributions of employment.
+
+It is against these density plots that we want to evaluate the validity of the monocentric model - and to which we apply the subcentre identification algorithm.
+
+
+```{r Figure 2a, fig.cap="Figure 2: Liverpool Employment Densities"}
 density.plots <- lapply(split(WZ.db, WZ.db$Region), function(x){
   ggplot() +
     geom_sf(data = x, aes(fill = dRNK.lcl), lwd = 0) +
@@ -395,16 +390,7 @@ density.plots <- lapply(split(WZ.db, WZ.db$Region), function(x){
       axis.text.y=element_blank(), axis.ticks.y=element_blank(), legend.position="bottom", legend.title = element_blank())
 })
 names(density.plots) <- names(split(WZ.db, WZ.db$Region))
-```
 
-
-Plotting density decile ranks for each of the small area (WZ) areas across the city reveal hotspot patterns and spatial distributions of employment.
-
-
-It is against these density plots that we want to evaluate the validity of the monocentric model - and to which we apply the subcentre identification algorithm.
-
-
-```{r Figure 2a, fig.cap="Figure 2: Liverpool Employment Densities"}
 p <- density.plots[["Liverpool City Region"]]
 p
 ```
@@ -421,193 +407,8 @@ p
 
 
 
-## Section 3: Urban Monocentricity Validation
 
-```{r FUNCTION: Split Regions into Rays from CBD, include=FALSE}
-# Inputs: REGION - Individual region by region set of WZ with employment density
-#                  measures to calculate the CBD.
-# Outputs: WZ level database for each input Region with newly added variables
-#        Dir_1                 - {0/1} Whether the WZ is included in the NW-SE Band (< 2.5 km from CBD)
-#        Dir_2                 - {0/1} Whether the WZ is included in the N-S Band (< 2.5 km from CBD)
-#        Dir_3                 - {0/1} Whether the WZ is included in the NE-SW Band (< 2.5 km from CBD)
-#        Dir_4                 - {0/1} Whether the WZ is included in the E-W Band (< 2.5 km from CBD)
-#        dist_CBD              - Distance to densest WZ
-#        dist_CBD_Dir1 {2/3/4} - *(1); *(-1) to identify which 'side' of the band the WZ is located in
-
-directional.rays <- function(REGION){
-  REGION <- st_transform(REGION, crs=4326)
-  region.CBD <- REGION[REGION$WZ_CD %in% REGION$WZ_CD[which.max(REGION$density)],]
-  bb <- st_bbox(st_transform(st_buffer(st_centroid(st_transform(region.CBD, crs=27700)), 1000*45), crs=4326))
-
-  x.max <- as.numeric(bb[3])
-  x.min <- as.numeric(bb[1])
-  x.avg <- st_coordinates(st_centroid(region.CBD))[,c("X")]
-  y.max <- as.numeric(bb[4])
-  y.min <- as.numeric(bb[2])
-  y.avg <- st_coordinates(st_centroid(region.CBD))[,c("Y")]
-
-  t1 <- st_as_sf(st_sfc(st_linestring(rbind(c(x.min, y.max), c(x.max, y.min)))))
-  t1$geometry <- t1$x
-  st_geometry(t1) <- "geometry"
-  t1$x <- NULL
-  st_crs(t1) <- 4326
-
-  t2 <- st_as_sf(st_sfc(st_linestring(rbind(c(x.avg, y.max), c(x.avg, y.min)))))
-  t2$geometry <- t2$x
-  st_geometry(t2) <- "geometry"
-  t2$x <- NULL
-  st_crs(t2) <- 4326
-
-  t3 <- st_as_sf(st_sfc(st_linestring(rbind(c(x.max, y.max), c(x.min, y.min)))))
-  t3$geometry <- t3$x
-  st_geometry(t3) <- "geometry"
-  t3$x <- NULL
-  st_crs(t3) <- 4326
-
-  t4 <- st_as_sf(st_sfc(st_linestring(rbind(c(x.min, y.avg), c(x.max, y.avg)))))
-  t4$geometry <- t4$x
-  st_geometry(t4) <- "geometry"
-  t4$x <- NULL
-  st_crs(t4) <- 4326
-
-  REGION$Dir_1 <- ifelse(as.numeric(st_distance(x = st_centroid(REGION), y = t1)) < 2500, 1, 0)
-  REGION$Dir_2 <- ifelse(as.numeric(st_distance(x = st_centroid(REGION), y = t2)) < 2500, 1, 0)
-  REGION$Dir_3 <- ifelse(as.numeric(st_distance(x = st_centroid(REGION), y = t3)) < 2500, 1, 0)
-  REGION$Dir_4 <- ifelse(as.numeric(st_distance(x = st_centroid(REGION), y = t4)) < 2500, 1, 0)
-
-  REGION$dist_CBD <- as.numeric(st_distance(x = st_centroid(region.CBD), y = st_centroid(REGION)))/1000
-  
-  REGION$dist_CBD_Dir1 <- -sign((REGION$longitude - x.max)*(y.min-y.max)-(REGION$latitude - y.max)*(x.min-x.max))*REGION$dist_CBD
-  REGION$dist_CBD_Dir2 <- -sign((REGION$longitude - x.min)*(y.avg-y.avg)-(REGION$latitude - y.avg)*(x.max-x.min))*REGION$dist_CBD
-  REGION$dist_CBD_Dir3 <- -sign((REGION$longitude - x.min)*(y.min-y.max)-(REGION$latitude - y.max)*(x.max-x.min))*REGION$dist_CBD
-  REGION$dist_CBD_Dir4 <- -sign((REGION$longitude - x.avg)*(y.min-y.max)-(REGION$latitude - y.max)*(x.avg-x.avg))*REGION$dist_CBD
-  
-  rm(bb, t1, t2, t3, t4)
-  return(list(REGION, region.CBD))
-}
-```
-
-```{r Split Regions into Rays from CBD to Evaluate Monocentricity, include=FALSE}
-WZ.db$latitude <- st_coordinates(st_centroid(st_transform(WZ.db, crs=4326)))[,c("Y")]
-WZ.db$longitude <- st_coordinates(st_centroid(st_transform(WZ.db, crs=4326)))[,c("X")]
-
-region.rays <- lapply(split(WZ.db, WZ.db$Region), function(x) directional.rays(x))
-
-ray.plots <- lapply(region.rays, function(x){
-  ggplot() +
-    geom_sf(data = x[[1]], color = "gray80", fill = "gray83") +
-    geom_sf(data = x[[1]][x[[1]]$Dir_1==1,], fill = "#948392", alpha=0.3, lwd = 0) +
-    geom_sf(data = x[[1]][x[[1]]$Dir_2==1,], fill = "#4E937A", alpha=0.3, lwd = 0) +
-    geom_sf(data = x[[1]][x[[1]]$Dir_3==1,], fill = "#B4656F", alpha=0.3, lwd = 0) +
-    geom_sf(data = x[[1]][x[[1]]$Dir_4==1,], fill = "#5CA4A9", alpha=0.3, lwd = 0) +
-    geom_sf(data = st_transform(st_buffer(st_transform(st_centroid(x[[2]]), crs=27700), 1000), crs=4326),
-      aes(fill=WZ_CD), alpha=0, color="maroon", show.legend = FALSE, lwd = 1) +
-    geom_sf(data = st_centroid(x[[2]]), color = "maroon", show.legend = FALSE) +
-    coord_sf() +
-    scale_x_continuous(expand = c(0,0)) +
-    labs(title = x[[2]]$Region, subtitle = paste0("Empl: ", WZ.stats[WZ.stats$Region==x[[2]]$Region,c("Total_Emp")], "; Area (ha): ", round(WZ.stats[WZ.stats$Region==x[[2]]$Region,c("Total_Area")], 0), "; Avg. Dens: ", round(WZ.stats[WZ.stats$Region==x[[2]]$Region,c("Avg_Dens")], 0)), caption=paste0("CBD: (lat.=", round(x[[2]]$latitude, 5),", lon.=", round(x[[2]]$longitude, 5), ")")) +
-    theme_classic() +
-    theme(axis.text.x=element_blank(), axis.ticks.x=element_blank(),
-      axis.text.y=element_blank(), axis.ticks.y=element_blank(), plot.caption = element_text(face = "italic"))
-})
-```
-
-
-```{r Generate Cross Sectional Density Plots, include=FALSE}
-labels <- list(c("#948392", "North-West to South-East"), c("#4E937A", "North to South"), c("#B4656F", "North-East to South-West"), c("#5CA4A9", "East to West"))
-
-cross.sections <- list()
-for(i in 1:length(unique(names(region.rays)[c(3)]))){
-  region <- names(region.rays)[c(3)][i]
-  region.WZ <- region.rays[[region]]
-
-  direction.slice <- lapply(list(list(region.WZ[[1]][region.WZ[[1]]$Dir_1==1,], -pi/4),
-    list(region.WZ[[1]][region.WZ[[1]]$Dir_2==1,], pi/2), list(region.WZ[[1]][region.WZ[[1]]$Dir_3==1,], pi/4),
-    list(region.WZ[[1]][region.WZ[[1]]$Dir_4==1,], 0)), function(x){
-      rot = function(a) matrix(c(cos(a), sin(a), -sin(a), cos(a)), 2, 2)
-      f <- st_geometry(x[[1]])
-      cntrd <- list()
-      for(i in 1:length(f)){
-        cntrd[[i]] <- st_centroid(region.WZ[[2]])
-      }
-      cntrd <- st_geometry(do.call(rbind, cntrd))
-      f <- st_sf(geom=(f-cntrd)*rot(x[[2]]) + cntrd)
-      f$WZ_CD <- x[[1]]$WZ_CD
-      f$density <- x[[1]]$density
-
-      if(mean(x[[1]]$Dir_1)==1){
-        f$distance <- x[[1]]$dist_CBD_Dir1
-      } else if(mean(x[[1]]$Dir_2)==1){
-        f$distance <- x[[1]]$dist_CBD_Dir2
-      } else if(mean(x[[1]]$Dir_3)==1){
-        f$distance <- x[[1]]$dist_CBD_Dir3
-      } else if(mean(x[[1]]$Dir_4)==1){
-        f$distance <- x[[1]]$dist_CBD_Dir4
-      }
-      return(f)
-  })
-  
-  plots <- list()
-  for(k in 1:4){
-    c1 <- ggplot(data=direction.slice[[k]], aes(x=distance, y=density)) +
-      geom_line(alpha=0.6, col=labels[[k]][1]) +
-      scale_y_continuous(name = "Density: D/1000", labels = function(y) y / 1000, expand = c(0,0)) +
-      scale_x_continuous(expand = c(0,0)) +
-      labs(title=paste0(region, ": ", labels[[k]][2])) +
-      theme_classic() +
-      theme(axis.text.x = element_blank(), axis.title.x=element_blank())
-    c2 <- ggplot(data=direction.slice[[k]], aes(x=distance, y=log(density))) +
-      geom_line(alpha=0.6, col=labels[[k]][1]) +
-      scale_y_continuous(name = "log Density: ln(D)", expand = c(0,0)) +
-      scale_x_continuous(name = "(Horizontal) Distance to CDB (km)", expand = c(0,0)) +
-      theme_classic()
-    plots[[k]] <- grid.arrange(c1, c2, ncol=1)
-  }
-  cross.sections[[i]] <- plots
-}
-names(cross.sections) <- names(region.rays)[c(3)]
-```
-
-
-For a robust research methodology, we want to evaluate whether the assumed model is appropriate across different urban areas. The *Monocentric* city model is contingent on single directional distance from the central business district.
-
-
-With many urban areas constrained by natural features such as bodies of water or topography, this uniform decay from the centre may be an unrealistic assumption upon which to identify employment subcentres.
-
-
-* Urban areas are much more complex, so we want to explore whether these stylized patterns exist in our actual data.
-
-
-The applicability of this concern can be visuliazed by taking cross sections of the urban area centred on the CBD. We take bands of latitude and longitude points respectively around the presumed CBD and plot densities and employment across the univariate directions East-West and North-South respectively. 
-
-
-And for Liverpool
-
-```{r Figure 3-2, fig.cap="Figure 3: Liverpool Bands"}
-p <- ray.plots[["Liverpool City Region"]]
-p
-```
-
-
-With corresponding patterns in observed employment density:
-
-
-```{r Figure 3-2a, fig.cap="Figure 3: Liverpool Bands"}
-p <- cross.sections[["Liverpool City Region"]][[1]]
-p
-```
-
-
-```{r Figure 3-2b, fig.cap="Figure 3: Liverpool Bands"}
-p <- cross.sections[["Liverpool City Region"]][[4]]
-p
-```
-
-
-
-
-
-## Section 4: England Regional Employment Subcentre Identification
+## Section 3: England Regional Employment Subcentre Identification
 
 ```{r Source Subcentre Identification Algorithm, include=FALSE}
 source(paste0(wd, "/Code/Subcentre_Identification.R"))
@@ -624,21 +425,14 @@ WZ.db$dist_CBD.sq <- WZ.db$dist_CBD*WZ.db$dist_CBD
 WZ.db$dist_CBD.cb <- WZ.db$dist_CBD.sq*WZ.db$dist_CBD
 ```
 
-### 4.1. Estimated Employment Density Gradients by Region (Urban Area)
+### 3.1. Estimated Employment Density Gradients by Region (Urban Area)
 
 
-Included in this repository is the subcentre identification algorithm tool itself located in *Subcentre_Identification.R*
-
+Included in this repository is the subcentre identification algorithm tool itself located in [Subcentre_Identification.R](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/blob/master/Code/Subcentre_Identification.R "Identifying Employment Subcentre Identification Algorithm")
 
 This updated version of [Ban et al. 2017](https://www.mdpi.com/2073-445X/6/1/17/htm "Identifying Employment Subcenters: The Method of Exponentially Declining Cutoffs") can be applied to the different regions across England to systematically identify where we have **employment hotspots**
 
-
-In first plotting the estimated density gradients of regions across England, we can select a more refined baseline employment levels and density values from which we evaluate subcentre deviations. The *distance* variable generated (within each region group) measures the distance of each Workzone tract from the respective tract within the region which has the highest employment density. While the choice of 'where' constitutes the 'central' area of an urban region, using the maximum density tract evaluates ......
-
-
-
-
-For each of the estimated log (proportiate) gradient values across the different regions, we can extract the beta parameters from which we can build the different functional forms and generate a plot for each region. This allows us to view how different estimated functional forms can potentially impact 
+We can estimate and evaluate the fit of each of the assumed model functional forms. We want to make sure we select the most appropriate form against which to look for outlier employment hotspots.
 
 
 ```{r Generate Estimated Gradient Values, include=FALSE}
@@ -693,7 +487,6 @@ density.log <- do.call(rbind, density.log)
 density.plots <- rbind(density.linear, density.squared)
 density.plots <- rbind(density.plots, density.cubed)
 density.plots <- rbind(density.plots, density.log)
-density.plots$y[density.plots$y > 200] <- 2000
 rm(density.linear, density.squared, density.cubed, density.log)
 ```
 
@@ -701,9 +494,9 @@ rm(density.linear, density.squared, density.cubed, density.log)
 plot.params <- data.frame(Region=unique(regions$Region))
 plot.params$y.lim <- 175
 plot.params$y.lim[plot.params$Region %in% c("Cambridgeshire and Peterborough", "North East", "Sheffield City Region", "Tees Valley")] <- 50
-plot.params$y.lim[plot.params$Region %in% c("London")] <- 500
+plot.params$y.lim[plot.params$Region %in% c("London")] <- 1000
 plot.params$x.lim <- 40
-plot.params$x.lim[plot.params$Region %in% c("Cambridgeshire and Peterborough", "North of Tyne", "Tees Valley", "West of England")] <- 20
+plot.params$x.lim[plot.params$Region %in% c("London", "Cambridgeshire and Peterborough", "North of Tyne", "Tees Valley", "West of England")] <- 20
 
 estimated.density <- lapply(as.list(unique(as.character(regions$Region))), function(p) {
   gradient.plots <- ggplot(data=density.plots[density.plots$Region==p,], aes(x=x)) +
@@ -712,7 +505,7 @@ estimated.density <- lapply(as.list(unique(as.character(regions$Region))), funct
     scale_y_continuous(limits = c(0, plot.params[plot.params$Region==p,]$y.lim), expand = c(0,0)) +
     scale_x_continuous(limits = c(0, plot.params[plot.params$Region==p,]$x.lim), expand = c(0,0)) +
     labs(y = "Density per ha.", x = "Distance to City Centre (km)", fill = "Functional",
-      title = "Estimated Employment Density Gradients", subtitle = paste(p, ": (N = ", as.character(WZ.stats[WZ.stats$Region==p,]$WZ_count), ")"),
+      title = "Estimated Employment Density Gradients", subtitle = paste0(p, ": (N = ", as.character(WZ.stats[WZ.stats$Region==p,]$WZ_count), ")"),
       caption = paste0("R-Squared: Linear=", unique(signif(density.plots[density.plots$Region==p & density.plots$Model=="Linear",]$Rsq, 4)),
   " ; Squared=", unique(signif(density.plots[density.plots$Region==p & density.plots$Model=="Squared",]$Rsq, 4)),
   " ; Cubed=", unique(signif(density.plots[density.plots$Region==p & density.plots$Model=="Cubed",]$Rsq, 4)),
@@ -767,34 +560,52 @@ p
 
 
 
-### 4.2. Subcentre Identification
+### 3.2. Subcentre Identification
 
-We get log(a) from the estimation directly, so we can use that as one of the options for our density cutoff can't we? That; average within some distance or some specified value per ha. already determined
+Included in this repository is the subcentre identification algorithm tool itself located in [Subcentre_Identification.R](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/blob/master/Code/Subcentre_Identification.R "Identifying Employment Subcentre Identification Algorithm")
 
 
 ```{r Subcentre Identification, include=FALSE}
 model.parameters <- expand.grid(unique(WZ.db$Region)[c(3,4)], c("Cubed"), NA, NA)
 names(model.parameters) <- c("Region", "Model_Gradient", "Density_Cutoff", "Employment_Cutoff")
-model.parameters$Density_Cutoff <- 3
-model.parameters$Employment_Cutoff <- 0.1
+model.parameters$Density_Cutoff <- c(5, 3)
+model.parameters$Employment_Cutoff <- c(0.1, 0.1)
 
 subcentre <- lapply(split(model.parameters, 1:nrow(model.parameters)), function(x) {
   subcentre.identification(WZ.db[WZ.db$Region==as.character(x[,c("Region")]),], c("WZ_CD", "employment", "area_ha"), GRADIENT=as.character(x[,c("Model_Gradient")]), CBD.cutD=as.numeric(x[,"Density_Cutoff"]), CBD.cutE=as.numeric(x[,"Employment_Cutoff"]) )
 })
+
+liverpool.subcentres <- subcentre[[1]][,c("tractID", "candidateID", "subcentreID", "SC_employment", "SC_area", "SC_distance", "SC_density", "tractN")]
+names(liverpool.subcentres)[names(liverpool.subcentres)=="tractID"] <- c("WZ_CD")
+liverpool.subcentres$candidateID[!is.na(liverpool.subcentres$subcentreID)] <- NA
+liverpool.subcentres$subcentreC <- 0
+liverpool.subcentres$subcentreC[!is.na(liverpool.subcentres$candidateID)] <- 1
+liverpool.subcentres$subcentreC[!is.na(liverpool.subcentres$subcentreID)] <- 2
+
+london.subcentres <- subcentre[[2]][,c("tractID", "candidateID", "subcentreID", "SC_employment", "SC_area", "SC_distance", "SC_density", "tractN")]
+names(london.subcentres)[names(london.subcentres)=="tractID"] <- c("WZ_CD")
+london.subcentres$candidateID[!is.na(london.subcentres$subcentreID)] <- NA
+london.subcentres$subcentreC <- 0
+london.subcentres$subcentreC[!is.na(london.subcentres$candidateID)] <- 1
+london.subcentres$subcentreC[!is.na(london.subcentres$subcentreID)] <- 2
+
+subcentre <- list(liverpool.subcentres, london.subcentres)
 ```
 
 ```{r Subcentre Plots, include=FALSE}
 SC.plot <- lapply(as.list(1:length(subcentre)), function(y) {
   ggplot() +
     geom_sf(data = subcentre[[y]], color = "gray80", fill = "gray83") +
-    geom_sf(data = subcentre[[y]][subcentre[[y]]$candidate==1,], color = "gold", fill= "gold", show.legend = FALSE, lwd = 0.01) +
-    geom_sf(data = subcentre[[y]][subcentre[[y]]$subcentre==1 & !is.na(subcentre[[y]]$subcentre),], aes(fill=subcentreID), color = "red4", show.legend = FALSE, lwd = 0.01) +
-    scale_fill_manual(values=sample(colorRampPalette(colors = c("#DC1C13", "#F6BDC0"))(20), length(unique(subcentre[[y]][subcentre[[y]]$subcentre==1 & !is.na(subcentre[[y]]$subcentre),]$subcentreID)), replace=TRUE)) +
+    geom_sf(data = subcentre[[y]][subcentre[[y]]$subcentreC==1,], color = "gold", fill= "gold", show.legend = FALSE, lwd = 0.01) +
+    geom_sf(data = subcentre[[y]][subcentre[[y]]$subcentreC==2 & !is.na(subcentre[[y]]$subcentreC),], aes(fill=subcentreID), color = "red4", show.legend = FALSE, lwd = 0.01) +
+    scale_fill_manual(values=sample(colorRampPalette(colors = c("#DC1C13", "#F6BDC0"))(20), length(unique(subcentre[[y]][subcentre[[y]]$subcentreC==2 & !is.na(subcentre[[y]]$subcentreC),]$subcentreID)), replace=TRUE)) +
     labs(title=as.character(model.parameters[y,1]), subtitle=paste0(as.character(model.parameters[y,2]), " Functional Form")) +
     theme(axis.text.x = element_blank(), axis.text.y = element_blank(), axis.ticks = element_blank(), plot.caption = element_text(face = "italic"))
 })
 ```
 
+
+While these applications are relatively simple 'out-of-the-box' application of the algorithm, the flexibility, speed, and openess of the data and research means that it can serve as a benchmark tool applied quickly, consistently and easily modified to different local contexts. 
 
 ```{r Figure 5a, fig.cap="Figure 4: Liverpool Density Gradients"}
 p <- SC.plot[[1]]
@@ -810,19 +621,17 @@ p
 
 
 
+## Selected References
 
+[Ban, Jifei, Richard Arnott, and Jacob L. Macdonald. 2017. "Identifying Employment Subcenters: The Method of Exponentially Declining Cutoffs." Land 6 (17).](https://www.mdpi.com/2073-445X/6/1/17/htm) 
 
+https://happygitwithr.com/
 
+[Office for National Statistics. 2014. "Workplace Zones: A new geography for workplace statistics."](https://data.gov.uk/dataset/6620567e-f237-4c6b-b561-64a2bc218783/workplace-zones-a-new-geography-for-workplace-statistics)
 
-## References
+[Office for National Statistics Nomis](https://www.nomisweb.co.uk/ "ONS Nomis Labour Market Statistics")
 
-Office for National Statistics (ONS). 2014. "Workplace Zones: A new geography for workplace statistics" May - Bruce Mitchell
-https://data.gov.uk/dataset/6620567e-f237-4c6b-b561-64a2bc218783/workplace-zones-a-new-geography-for-workplace-statistics
-
-Bin et al. (2017)
-
-[Nomis](https://www.nomisweb.co.uk/ "ONS Nomis Labour Market Statistics")
-Table WP102EW
+[Office for National Statistics Open Geography Portal](https://geoportal.statistics.gov.uk/ "The Open Geography Portal")
 
 
 
