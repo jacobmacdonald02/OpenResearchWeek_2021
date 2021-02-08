@@ -13,7 +13,12 @@ Using some work on open data, this research analytical showcases an online prese
 
 Primarily, **Git** and **Github** are used to monitor and version control coding documents. This has developed itself into a hosting site for a wide range and types of outputs.
 
-During this session, we'll overview the main ways and examples of how to incorporate: - Text - Code - Visualization - Methodologies - Analyses
+During this session, we'll overview the main ways and examples of how to incorporate: 
+-   Text 
+-   Code 
+-   Visualization 
+-   Methodologies 
+-   Analyses
 
 One of the main benefits of this format is the sharing of code and data outputs
 
@@ -32,7 +37,7 @@ p <- ggplot(distributions, aes(x=Value, fill=Type)) +
 p
 ```
 
-![](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Rmd%20Code%20Example-1.png)
+![](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/blob/master/README_files/figure-markdown_github/Rmd%20Code%20Example-1.png)
 
 Section 1: Parametric Employment Subcentre Identification for Great Britain
 ---------------------------------------------------------------------------
@@ -108,7 +113,7 @@ p2 <- ggplot(data.frame(x, y = 5.75-x), aes(x,y)) +
 grid.arrange(p1, p2, ncol=2)
 ```
 
-![](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Gradient%20Decay:%20Linear-1.png)
+![](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/blob/master/README_files/figure-markdown_github/Gradient%20Decay:%20Linear-1.png)
 
 (c, d)
 *f*(*x*)=*α* + *β*<sub>1</sub> ⋅ *x* − *β*<sub>2</sub> ⋅ *x*<sup>2</sup>
@@ -117,7 +122,7 @@ grid.arrange(p1, p2, ncol=2)
 grid.arrange(p1, p2, ncol=2)
 ```
 
-![](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Gradient%20Decay:%20Squared1%20Print-1.png)
+![](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/blob/master/README_files/figure-markdown_github/Gradient%20Decay:%20Squared1%20Print-1.png)
 
 (e, f)
 *f*(*x*)=*α* − *β*<sub>1</sub> ⋅ *x* + *β*<sub>2</sub> ⋅ *x*<sup>2</sup>
@@ -126,7 +131,7 @@ grid.arrange(p1, p2, ncol=2)
 grid.arrange(p1, p2, ncol=2)
 ```
 
-![](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Gradient%20Decay:%20Squared2%20Print-1.png)
+![](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/blob/master/README_files/figure-markdown_github/Gradient%20Decay:%20Squared2%20Print-1.png)
 
 (g, h)
 *f*(*x*)=*α* − *β*<sub>1</sub> ⋅ *x* + *β*<sub>2</sub> ⋅ *x*<sup>2</sup> − *β*<sub>3</sub> ⋅ *x*<sup>3</sup>
@@ -135,7 +140,7 @@ grid.arrange(p1, p2, ncol=2)
 grid.arrange(p1, p2, ncol=2)
 ```
 
-![](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Gradient%20Decay:%20Cubic%20Print-1.png)
+![](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/blob/master/README_files/figure-markdown_github/Gradient%20Decay:%20Cubic%20Print-1.png)
 
 (i, j)
 *f*(*x*)=*α* − *β*<sub>4</sub> ⋅ ln(*x*)
@@ -144,7 +149,7 @@ grid.arrange(p1, p2, ncol=2)
 grid.arrange(p1, p2, ncol=2)
 ```
 
-![](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Gradient%20Decay:%20Log%20Print-1.png)
+![](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/blob/master/README_files/figure-markdown_github/Gradient%20Decay:%20Log%20Print-1.png)
 
 We're going to thus update the subcentre employment zone algorithm from [Ban et al. 2017](https://www.mdpi.com/2073-445X/6/1/17/htm "Identifying Employment Subcenters: The Method of Exponentially Declining Cutoffs") and then using the flexible update, apply this quickly and efficiently across multiple municipal regions across England.
 
@@ -220,21 +225,21 @@ p <- density.plots[["Liverpool City Region"]]
 p
 ```
 
-![Figure 2: Liverpool Employment Densities](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Figure%202a-1.png)
+![Figure 2: Liverpool Employment Densities](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/blob/master/README_files/figure-markdown_github/Figure%202a-1.png)
 
 ``` r
 p <- density.plots[["Greater Manchester"]]
 p
 ```
 
-![Figure 2: Manchester Employment Densities](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Figure%202b-1.png)
+![Figure 2: Manchester Employment Densities](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/blob/master/README_files/figure-markdown_github/Figure%202b-1.png)
 
 ``` r
 p <- density.plots[["London"]]
 p
 ```
 
-![Figure 2: London Employment Densities](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Figure%202c-1.png)
+![Figure 2: London Employment Densities](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/blob/master/README_files/figure-markdown_github/Figure%202c-1.png)
 
 Section 3: England Regional Employment Subcentre Identification
 ---------------------------------------------------------------
@@ -252,21 +257,21 @@ p <- estimated.density[["Liverpool City Region"]]
 p
 ```
 
-![Figure 4: Liverpool Density Gradients](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Figure%204a-1.png)
+![Figure 4: Liverpool Density Gradients](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/blob/master/README_files/figure-markdown_github/Figure%204a-1.png)
 
 ``` r
 p <- estimated.density[["Greater Manchester"]]
 p
 ```
 
-![Figure 4: Manchester Density Gradients](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Figure%204b-1.png)
+![Figure 4: Manchester Density Gradients](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/blob/master/README_files/figure-markdown_github/Figure%204b-1.png)
 
 ``` r
 p <- estimated.density[["London"]]
 p
 ```
 
-![Figure 4: London Density Gradients](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Figure%204c-1.png)
+![Figure 4: London Density Gradients](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/blob/master/README_files/figure-markdown_github/Figure%204c-1.png)
 
 We can also plot the estimated model results from fitting the gradient along the different types of functional form, which helps us evaluate which model we should be choosing.
 
@@ -282,7 +287,7 @@ p <- ggplot() +
 p
 ```
 
-![](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Density%20Gradient%20Model%20Fits%20Plot-1.png)
+![](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/blob/master/README_files/figure-markdown_github/Density%20Gradient%20Model%20Fits%20Plot-1.png)
 
 ### 3.2. Subcentre Identification
 
@@ -295,14 +300,14 @@ p <- SC.plot[[1]]
 p
 ```
 
-![Figure 4: Liverpool Density Gradients](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Figure%205a-1.png)
+![Figure 4: Liverpool Density Gradients](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/blob/master/README_files/figure-markdown_github/Figure%205a-1.png)
 
 ``` r
 p <- SC.plot[[2]]
 p
 ```
 
-![Figure 4: London Density Gradients](/Users/jake_mac02/Dropbox/Research/OpenResearchWeek_2021/README_files/figure-markdown_github/Figure%205b-1.png)
+![Figure 4: London Density Gradients](https://github.com/jacobmacdonald02/OpenResearchWeek_2021/blob/master/README_files/figure-markdown_github/Figure%205b-1.png)
 
 Selected References
 -------------------
